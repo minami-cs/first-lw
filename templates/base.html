@@ -1,0 +1,41 @@
+{%load static%}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <nav>
+        <div class="menu">
+            <a href="{% url 'index' %}"><span>메인으로</span></a>
+            <a href="{% url 'second' %}">
+                <span>
+                    <second-page>두번째페이지로</second-page>
+                </span>
+            </a>
+            {% if user.is_authenticated %}
+            <span class="user">
+                사용자({{user}})
+            </span>
+            <a href="{% url 'logout' %}">로그아웃</a>
+            {% else %}
+            <a href="{% url 'signup' %}">회원가입</a>
+            <a href="{% url 'login' %}">로그인</a>
+            <a class="kakaologin" href="{% provider_login_url 'kakao' %}">카카오로그인</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% block contents %}
+    {% endblock %}
+</body>
+
+</html>

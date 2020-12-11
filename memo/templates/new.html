@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<h1>새페이지</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{newform.as_p}}
+    <button type="submit"> 작성쓰 </button>
+</form>
+
+{% endblock %}

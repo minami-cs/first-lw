@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+<h1>상세페이지</h1>
+<a href="{% url 'update' one_memo.id %}">수정</a>
+<a href="{% url 'delete' one_memo.id %}">삭제</a>
+<h2>제목: {{one_memo.title}}</h2>
+{% autoescape off %}
+<p>본문: {{one_memo.desc}}</p>
+{% endautoescape %}
+<p>작성일: {{one_memo.created_date}}</p>
+
+<h3>댓글을 입력해주세요</h3>
+<form method="POST" action="{% url 'create_comment' one_memo.id %}">
+    {% csrf_token %}
+    댓글 내용: {{comment_form.desc}}
+    <button type="submit">제출</button>
+</form>
+
+<h4>댓글목록({{one_memo.comment_set.all|length}})</h4>
+<!-- django built-in template 참고 -->
+{% for i in one_memo.comment_set.all %}
+<div>{{i}}</div>
+<p>💟 {{i.desc}} - {{i.created_date}}</p>
+{% endfor %}
+
+{% endblock %}
